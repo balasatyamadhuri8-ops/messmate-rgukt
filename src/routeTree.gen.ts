@@ -17,7 +17,11 @@ import { Route as AuthAdminRouteImport } from './routes/auth.admin'
 import { Route as AuthRegisterRouteImport } from './routes/auth.register'
 import { Route as AuthStudentRouteImport } from './routes/auth.student'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAdminOccupancyRouteImport } from './routes/_authenticated/admin/occupancy'
+import { Route as AuthenticatedAdminProblemsRouteImport } from './routes/_authenticated/admin/problems'
+import { Route as AuthenticatedAdminProfileRouteImport } from './routes/_authenticated/admin/profile'
 import { Route as AuthenticatedAdminScannerRouteImport } from './routes/_authenticated/admin/scanner'
+import { Route as AuthenticatedAdminTransactionsRouteImport } from './routes/_authenticated/admin/transactions'
 import { Route as AuthenticatedStudentIndexRouteImport } from './routes/_authenticated/student/index'
 import { Route as AuthenticatedStudentMenuRouteImport } from './routes/_authenticated/student/menu'
 import { Route as AuthenticatedStudentProblemsRouteImport } from './routes/_authenticated/student/problems'
@@ -66,10 +70,34 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
+const AuthenticatedAdminOccupancyRoute =
+  AuthenticatedAdminOccupancyRouteImport.update({
+    id: '/occupancy',
+    path: '/occupancy',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminProblemsRoute =
+  AuthenticatedAdminProblemsRouteImport.update({
+    id: '/problems',
+    path: '/problems',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminProfileRoute =
+  AuthenticatedAdminProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminScannerRoute =
   AuthenticatedAdminScannerRouteImport.update({
     id: '/scanner',
     path: '/scanner',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminTransactionsRoute =
+  AuthenticatedAdminTransactionsRouteImport.update({
+    id: '/transactions',
+    path: '/transactions',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
 const AuthenticatedStudentIndexRoute =
@@ -121,7 +149,11 @@ export interface FileRoutesByFullPath {
   '/auth/admin': typeof AuthAdminRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/student': typeof AuthStudentRoute
+  '/admin/occupancy': typeof AuthenticatedAdminOccupancyRoute
+  '/admin/problems': typeof AuthenticatedAdminProblemsRoute
+  '/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/admin/scanner': typeof AuthenticatedAdminScannerRoute
+  '/admin/transactions': typeof AuthenticatedAdminTransactionsRoute
   '/student/menu': typeof AuthenticatedStudentMenuRoute
   '/student/problems': typeof AuthenticatedStudentProblemsRoute
   '/student/profile': typeof AuthenticatedStudentProfileRoute
@@ -136,7 +168,11 @@ export interface FileRoutesByTo {
   '/auth/admin': typeof AuthAdminRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/student': typeof AuthStudentRoute
+  '/admin/occupancy': typeof AuthenticatedAdminOccupancyRoute
+  '/admin/problems': typeof AuthenticatedAdminProblemsRoute
+  '/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/admin/scanner': typeof AuthenticatedAdminScannerRoute
+  '/admin/transactions': typeof AuthenticatedAdminTransactionsRoute
   '/student/menu': typeof AuthenticatedStudentMenuRoute
   '/student/problems': typeof AuthenticatedStudentProblemsRoute
   '/student/profile': typeof AuthenticatedStudentProfileRoute
@@ -155,7 +191,11 @@ export interface FileRoutesById {
   '/auth/admin': typeof AuthAdminRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/student': typeof AuthStudentRoute
+  '/_authenticated/admin/occupancy': typeof AuthenticatedAdminOccupancyRoute
+  '/_authenticated/admin/problems': typeof AuthenticatedAdminProblemsRoute
+  '/_authenticated/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/_authenticated/admin/scanner': typeof AuthenticatedAdminScannerRoute
+  '/_authenticated/admin/transactions': typeof AuthenticatedAdminTransactionsRoute
   '/_authenticated/student/menu': typeof AuthenticatedStudentMenuRoute
   '/_authenticated/student/problems': typeof AuthenticatedStudentProblemsRoute
   '/_authenticated/student/profile': typeof AuthenticatedStudentProfileRoute
@@ -174,7 +214,11 @@ export interface FileRouteTypes {
     | '/auth/admin'
     | '/auth/register'
     | '/auth/student'
+    | '/admin/occupancy'
+    | '/admin/problems'
+    | '/admin/profile'
     | '/admin/scanner'
+    | '/admin/transactions'
     | '/student/menu'
     | '/student/problems'
     | '/student/profile'
@@ -189,7 +233,11 @@ export interface FileRouteTypes {
     | '/auth/admin'
     | '/auth/register'
     | '/auth/student'
+    | '/admin/occupancy'
+    | '/admin/problems'
+    | '/admin/profile'
     | '/admin/scanner'
+    | '/admin/transactions'
     | '/student/menu'
     | '/student/problems'
     | '/student/profile'
@@ -207,7 +255,11 @@ export interface FileRouteTypes {
     | '/auth/admin'
     | '/auth/register'
     | '/auth/student'
+    | '/_authenticated/admin/occupancy'
+    | '/_authenticated/admin/problems'
+    | '/_authenticated/admin/profile'
     | '/_authenticated/admin/scanner'
+    | '/_authenticated/admin/transactions'
     | '/_authenticated/student/menu'
     | '/_authenticated/student/problems'
     | '/_authenticated/student/profile'
@@ -284,11 +336,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/occupancy': {
+      id: '/_authenticated/admin/occupancy'
+      path: '/occupancy'
+      fullPath: '/admin/occupancy'
+      preLoaderRoute: typeof AuthenticatedAdminOccupancyRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/problems': {
+      id: '/_authenticated/admin/problems'
+      path: '/problems'
+      fullPath: '/admin/problems'
+      preLoaderRoute: typeof AuthenticatedAdminProblemsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/profile': {
+      id: '/_authenticated/admin/profile'
+      path: '/profile'
+      fullPath: '/admin/profile'
+      preLoaderRoute: typeof AuthenticatedAdminProfileRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/scanner': {
       id: '/_authenticated/admin/scanner'
       path: '/scanner'
       fullPath: '/admin/scanner'
       preLoaderRoute: typeof AuthenticatedAdminScannerRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/transactions': {
+      id: '/_authenticated/admin/transactions'
+      path: '/transactions'
+      fullPath: '/admin/transactions'
+      preLoaderRoute: typeof AuthenticatedAdminTransactionsRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/_authenticated/student/': {
@@ -344,13 +424,21 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedAdminRouteRouteChildren {
+  AuthenticatedAdminOccupancyRoute: typeof AuthenticatedAdminOccupancyRoute
+  AuthenticatedAdminProblemsRoute: typeof AuthenticatedAdminProblemsRoute
+  AuthenticatedAdminProfileRoute: typeof AuthenticatedAdminProfileRoute
   AuthenticatedAdminScannerRoute: typeof AuthenticatedAdminScannerRoute
+  AuthenticatedAdminTransactionsRoute: typeof AuthenticatedAdminTransactionsRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
   {
+    AuthenticatedAdminOccupancyRoute: AuthenticatedAdminOccupancyRoute,
+    AuthenticatedAdminProblemsRoute: AuthenticatedAdminProblemsRoute,
+    AuthenticatedAdminProfileRoute: AuthenticatedAdminProfileRoute,
     AuthenticatedAdminScannerRoute: AuthenticatedAdminScannerRoute,
+    AuthenticatedAdminTransactionsRoute: AuthenticatedAdminTransactionsRoute,
     AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   }
 
