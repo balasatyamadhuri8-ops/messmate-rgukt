@@ -14,16 +14,327 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      admin_access: {
+        Row: {
+          id: number
+          shared_password: string
+        }
+        Insert: {
+          id?: number
+          shared_password: string
+        }
+        Update: {
+          id?: number
+          shared_password?: string
+        }
+        Relationships: []
+      }
+      menu: {
+        Row: {
+          day: string
+          default_items: string[]
+          id: string
+          is_default: boolean
+          items: string[]
+          meal_period: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          day: string
+          default_items?: string[]
+          id?: string
+          is_default?: boolean
+          items?: string[]
+          meal_period: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          day?: string
+          default_items?: string[]
+          id?: string
+          is_default?: boolean
+          items?: string[]
+          meal_period?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      mess_sessions: {
+        Row: {
+          created_at: string
+          ended_at: string | null
+          id: string
+          reset_by: string | null
+          started_at: string
+        }
+        Insert: {
+          created_at?: string
+          ended_at?: string | null
+          id?: string
+          reset_by?: string | null
+          started_at?: string
+        }
+        Update: {
+          created_at?: string
+          ended_at?: string | null
+          id?: string
+          reset_by?: string | null
+          started_at?: string
+        }
+        Relationships: []
+      }
+      mess_settings: {
+        Row: {
+          breakfast_end: string
+          breakfast_start: string
+          dinner_end: string
+          dinner_start: string
+          high_max: number
+          id: string
+          low_max: number
+          lunch_end: string
+          lunch_start: string
+          medium_max: number
+          snacks_end: string
+          snacks_start: string
+          total_seats: number
+          updated_at: string
+          updated_by: string | null
+          very_low_max: number
+        }
+        Insert: {
+          breakfast_end?: string
+          breakfast_start?: string
+          dinner_end?: string
+          dinner_start?: string
+          high_max?: number
+          id?: string
+          low_max?: number
+          lunch_end?: string
+          lunch_start?: string
+          medium_max?: number
+          snacks_end?: string
+          snacks_start?: string
+          total_seats?: number
+          updated_at?: string
+          updated_by?: string | null
+          very_low_max?: number
+        }
+        Update: {
+          breakfast_end?: string
+          breakfast_start?: string
+          dinner_end?: string
+          dinner_start?: string
+          high_max?: number
+          id?: string
+          low_max?: number
+          lunch_end?: string
+          lunch_start?: string
+          medium_max?: number
+          snacks_end?: string
+          snacks_start?: string
+          total_seats?: number
+          updated_at?: string
+          updated_by?: string | null
+          very_low_max?: number
+        }
+        Relationships: []
+      }
+      problems: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          id: string
+          image_url: string | null
+          status: Database["public"]["Enums"]["problem_status"]
+          student_id: string
+          title: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description: string
+          id?: string
+          image_url?: string | null
+          status?: Database["public"]["Enums"]["problem_status"]
+          student_id: string
+          title: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          status?: Database["public"]["Enums"]["problem_status"]
+          student_id?: string
+          title?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "problems_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          qr_code: string
+          role: Database["public"]["Enums"]["app_role"]
+          student_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name?: string
+          id: string
+          qr_code?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          student_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          qr_code?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          student_id?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      qr_transactions: {
+        Row: {
+          action: Database["public"]["Enums"]["occupancy_status"]
+          created_at: string
+          id: string
+          performed_by: string | null
+          performed_by_name: string | null
+          session_id: string | null
+          student_id: string
+        }
+        Insert: {
+          action: Database["public"]["Enums"]["occupancy_status"]
+          created_at?: string
+          id?: string
+          performed_by?: string | null
+          performed_by_name?: string | null
+          session_id?: string | null
+          student_id: string
+        }
+        Update: {
+          action?: Database["public"]["Enums"]["occupancy_status"]
+          created_at?: string
+          id?: string
+          performed_by?: string | null
+          performed_by_name?: string | null
+          session_id?: string | null
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "qr_transactions_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "mess_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "qr_transactions_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      student_occupancy: {
+        Row: {
+          current_status: Database["public"]["Enums"]["occupancy_status"]
+          entered_at: string | null
+          id: string
+          student_id: string
+          updated_at: string
+        }
+        Insert: {
+          current_status?: Database["public"]["Enums"]["occupancy_status"]
+          entered_at?: string | null
+          id?: string
+          student_id: string
+          updated_at?: string
+        }
+        Update: {
+          current_status?: Database["public"]["Enums"]["occupancy_status"]
+          entered_at?: string | null
+          id?: string
+          student_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_occupancy_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "student" | "admin"
+      occupancy_status: "IN" | "OUT"
+      problem_status: "Pending" | "In Progress" | "Resolved" | "Rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +461,10 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["student", "admin"],
+      occupancy_status: ["IN", "OUT"],
+      problem_status: ["Pending", "In Progress", "Resolved", "Rejected"],
+    },
   },
 } as const

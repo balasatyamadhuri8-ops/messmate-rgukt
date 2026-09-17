@@ -1,5 +1,13 @@
 {
   "version": "7",
   "dialect": "postgresql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1789636928340,
+      "tag": "0000_mess_management_core",
+      "breakpoints": true
+    }
+  ]
 }
