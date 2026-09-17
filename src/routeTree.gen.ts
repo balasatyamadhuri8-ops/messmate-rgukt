@@ -17,8 +17,11 @@ import { Route as AuthAdminRouteImport } from './routes/auth.admin'
 import { Route as AuthRegisterRouteImport } from './routes/auth.register'
 import { Route as AuthStudentRouteImport } from './routes/auth.student'
 import { Route as AuthenticatedStudentIndexRouteImport } from './routes/_authenticated/student/index'
+import { Route as AuthenticatedStudentMenuRouteImport } from './routes/_authenticated/student/menu'
+import { Route as AuthenticatedStudentProblemsRouteImport } from './routes/_authenticated/student/problems'
 import { Route as AuthenticatedStudentProfileRouteImport } from './routes/_authenticated/student/profile'
 import { Route as AuthenticatedStudentQrRouteImport } from './routes/_authenticated/student/qr'
+import { Route as AuthenticatedStudentReportRouteImport } from './routes/_authenticated/student/report'
 import { Route as AuthenticatedStudentStatusRouteImport } from './routes/_authenticated/student/status'
 
 const IndexRoute = IndexRouteImport.update({
@@ -62,6 +65,18 @@ const AuthenticatedStudentIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedStudentRouteRoute,
   } as any)
+const AuthenticatedStudentMenuRoute =
+  AuthenticatedStudentMenuRouteImport.update({
+    id: '/menu',
+    path: '/menu',
+    getParentRoute: () => AuthenticatedStudentRouteRoute,
+  } as any)
+const AuthenticatedStudentProblemsRoute =
+  AuthenticatedStudentProblemsRouteImport.update({
+    id: '/problems',
+    path: '/problems',
+    getParentRoute: () => AuthenticatedStudentRouteRoute,
+  } as any)
 const AuthenticatedStudentProfileRoute =
   AuthenticatedStudentProfileRouteImport.update({
     id: '/profile',
@@ -73,6 +88,12 @@ const AuthenticatedStudentQrRoute = AuthenticatedStudentQrRouteImport.update({
   path: '/qr',
   getParentRoute: () => AuthenticatedStudentRouteRoute,
 } as any)
+const AuthenticatedStudentReportRoute =
+  AuthenticatedStudentReportRouteImport.update({
+    id: '/report',
+    path: '/report',
+    getParentRoute: () => AuthenticatedStudentRouteRoute,
+  } as any)
 const AuthenticatedStudentStatusRoute =
   AuthenticatedStudentStatusRouteImport.update({
     id: '/status',
@@ -87,8 +108,11 @@ export interface FileRoutesByFullPath {
   '/auth/admin': typeof AuthAdminRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/student': typeof AuthStudentRoute
+  '/student/menu': typeof AuthenticatedStudentMenuRoute
+  '/student/problems': typeof AuthenticatedStudentProblemsRoute
   '/student/profile': typeof AuthenticatedStudentProfileRoute
   '/student/qr': typeof AuthenticatedStudentQrRoute
+  '/student/report': typeof AuthenticatedStudentReportRoute
   '/student/status': typeof AuthenticatedStudentStatusRoute
   '/student/': typeof AuthenticatedStudentIndexRoute
 }
@@ -98,8 +122,11 @@ export interface FileRoutesByTo {
   '/auth/admin': typeof AuthAdminRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/student': typeof AuthStudentRoute
+  '/student/menu': typeof AuthenticatedStudentMenuRoute
+  '/student/problems': typeof AuthenticatedStudentProblemsRoute
   '/student/profile': typeof AuthenticatedStudentProfileRoute
   '/student/qr': typeof AuthenticatedStudentQrRoute
+  '/student/report': typeof AuthenticatedStudentReportRoute
   '/student/status': typeof AuthenticatedStudentStatusRoute
   '/student': typeof AuthenticatedStudentIndexRoute
 }
@@ -112,8 +139,11 @@ export interface FileRoutesById {
   '/auth/admin': typeof AuthAdminRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/student': typeof AuthStudentRoute
+  '/_authenticated/student/menu': typeof AuthenticatedStudentMenuRoute
+  '/_authenticated/student/problems': typeof AuthenticatedStudentProblemsRoute
   '/_authenticated/student/profile': typeof AuthenticatedStudentProfileRoute
   '/_authenticated/student/qr': typeof AuthenticatedStudentQrRoute
+  '/_authenticated/student/report': typeof AuthenticatedStudentReportRoute
   '/_authenticated/student/status': typeof AuthenticatedStudentStatusRoute
   '/_authenticated/student/': typeof AuthenticatedStudentIndexRoute
 }
@@ -126,8 +156,11 @@ export interface FileRouteTypes {
     | '/auth/admin'
     | '/auth/register'
     | '/auth/student'
+    | '/student/menu'
+    | '/student/problems'
     | '/student/profile'
     | '/student/qr'
+    | '/student/report'
     | '/student/status'
     | '/student/'
   fileRoutesByTo: FileRoutesByTo
@@ -137,8 +170,11 @@ export interface FileRouteTypes {
     | '/auth/admin'
     | '/auth/register'
     | '/auth/student'
+    | '/student/menu'
+    | '/student/problems'
     | '/student/profile'
     | '/student/qr'
+    | '/student/report'
     | '/student/status'
     | '/student'
   id:
@@ -150,8 +186,11 @@ export interface FileRouteTypes {
     | '/auth/admin'
     | '/auth/register'
     | '/auth/student'
+    | '/_authenticated/student/menu'
+    | '/_authenticated/student/problems'
     | '/_authenticated/student/profile'
     | '/_authenticated/student/qr'
+    | '/_authenticated/student/report'
     | '/_authenticated/student/status'
     | '/_authenticated/student/'
   fileRoutesById: FileRoutesById
@@ -222,6 +261,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedStudentIndexRouteImport
       parentRoute: typeof AuthenticatedStudentRouteRoute
     }
+    '/_authenticated/student/menu': {
+      id: '/_authenticated/student/menu'
+      path: '/menu'
+      fullPath: '/student/menu'
+      preLoaderRoute: typeof AuthenticatedStudentMenuRouteImport
+      parentRoute: typeof AuthenticatedStudentRouteRoute
+    }
+    '/_authenticated/student/problems': {
+      id: '/_authenticated/student/problems'
+      path: '/problems'
+      fullPath: '/student/problems'
+      preLoaderRoute: typeof AuthenticatedStudentProblemsRouteImport
+      parentRoute: typeof AuthenticatedStudentRouteRoute
+    }
     '/_authenticated/student/profile': {
       id: '/_authenticated/student/profile'
       path: '/profile'
@@ -236,6 +289,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedStudentQrRouteImport
       parentRoute: typeof AuthenticatedStudentRouteRoute
     }
+    '/_authenticated/student/report': {
+      id: '/_authenticated/student/report'
+      path: '/report'
+      fullPath: '/student/report'
+      preLoaderRoute: typeof AuthenticatedStudentReportRouteImport
+      parentRoute: typeof AuthenticatedStudentRouteRoute
+    }
     '/_authenticated/student/status': {
       id: '/_authenticated/student/status'
       path: '/status'
@@ -247,16 +307,22 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedStudentRouteRouteChildren {
+  AuthenticatedStudentMenuRoute: typeof AuthenticatedStudentMenuRoute
+  AuthenticatedStudentProblemsRoute: typeof AuthenticatedStudentProblemsRoute
   AuthenticatedStudentProfileRoute: typeof AuthenticatedStudentProfileRoute
   AuthenticatedStudentQrRoute: typeof AuthenticatedStudentQrRoute
+  AuthenticatedStudentReportRoute: typeof AuthenticatedStudentReportRoute
   AuthenticatedStudentStatusRoute: typeof AuthenticatedStudentStatusRoute
   AuthenticatedStudentIndexRoute: typeof AuthenticatedStudentIndexRoute
 }
 
 const AuthenticatedStudentRouteRouteChildren: AuthenticatedStudentRouteRouteChildren =
   {
+    AuthenticatedStudentMenuRoute: AuthenticatedStudentMenuRoute,
+    AuthenticatedStudentProblemsRoute: AuthenticatedStudentProblemsRoute,
     AuthenticatedStudentProfileRoute: AuthenticatedStudentProfileRoute,
     AuthenticatedStudentQrRoute: AuthenticatedStudentQrRoute,
+    AuthenticatedStudentReportRoute: AuthenticatedStudentReportRoute,
     AuthenticatedStudentStatusRoute: AuthenticatedStudentStatusRoute,
     AuthenticatedStudentIndexRoute: AuthenticatedStudentIndexRoute,
   }
