@@ -74,7 +74,7 @@ function MessSettings() {
 
     setSaving(true);
     try {
-      const payload: Record<string, unknown> = {
+      const payload: Record<string, any> = {
         updated_at: new Date().toISOString(),
         updated_by: profile?.id ?? null,
       };
@@ -82,7 +82,7 @@ function MessSettings() {
       for (const [key] of TIME_FIELDS) payload[key] = form[key];
       const { error } = await supabase
         .from("mess_settings")
-        .update(payload)
+        .update(payload as never)
         .eq("id", settings.data!.id);
       if (error) {
         toast.error("Unable to save settings. Please try again.");

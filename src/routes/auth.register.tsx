@@ -48,12 +48,12 @@ function Register() {
 
   function validate() {
     const next: Record<string, string> = {};
-    if (form.fullName.trim().length < 2) next.fullName = "Please enter your full name.";
-    if (form.studentId.trim().length < 2) next.studentId = "Please enter your Student ID.";
+    if (form.fullName.trim().length < 2) next['fullName'] = "Please enter your full name.";
+    if (form.studentId.trim().length < 2) next['studentId'] = "Please enter your Student ID.";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
-      next.email = "Please enter a valid email address.";
-    if (form.password.length < 6) next.password = "Password must be at least 6 characters.";
-    if (form.password !== form.confirm) next.confirm = "Passwords do not match.";
+      next['email'] = "Please enter a valid email address.";
+    if (form.password.length < 6) next['password'] = "Password must be at least 6 characters.";
+    if (form.password !== form.confirm) next['confirm'] = "Passwords do not match.";
     setErrors(next);
     return Object.keys(next).length === 0;
   }

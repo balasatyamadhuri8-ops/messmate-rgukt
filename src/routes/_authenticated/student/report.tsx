@@ -39,12 +39,12 @@ function ReportProblem() {
 
   function validate() {
     const next: Record<string, string> = {};
-    if (!category) next.category = "Please select a category.";
-    if (title.trim().length < 3) next.title = "Please enter a short title.";
-    if (description.trim().length < 5) next.description = "Please describe the problem.";
+    if (!category) next['category'] = "Please select a category.";
+    if (title.trim().length < 3) next['title'] = "Please enter a short title.";
+    if (description.trim().length < 5) next['description'] = "Please describe the problem.";
     if (file) {
-      if (!ALLOWED.includes(file.type)) next.file = "Please upload a JPG, PNG or WebP image.";
-      else if (file.size > MAX_BYTES) next.file = "Image must be 5 MB or smaller.";
+      if (!ALLOWED.includes(file.type)) next['file'] = "Please upload a JPG, PNG or WebP image.";
+      else if (file.size > MAX_BYTES) next['file'] = "Image must be 5 MB or smaller.";
     }
     setErrors(next);
     return Object.keys(next).length === 0;

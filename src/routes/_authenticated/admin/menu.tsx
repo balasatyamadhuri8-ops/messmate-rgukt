@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { useMenu } from "@/lib/data";
 import { useAuth } from "@/lib/auth";
-import { DAYS, MEAL_PERIODS } from "@/lib/mess";
+import { DAYS, MEALS } from "@/lib/mess";
 
 export const Route = createFileRoute("/_authenticated/admin/menu")({
   component: AdminMenu,
@@ -73,7 +73,7 @@ function AdminMenu() {
         </TabsList>
         {DAYS.map((day) => (
           <TabsContent key={day} value={day} className="grid gap-4 md:grid-cols-2">
-            {MEAL_PERIODS.map((meal) => {
+            {MEALS.map((meal) => {
               const row = rows.find((r) => r.day === day && r.meal_period === meal);
               if (!row) return null;
               const draft = drafts[row.id] ?? row.items.join("\n");
