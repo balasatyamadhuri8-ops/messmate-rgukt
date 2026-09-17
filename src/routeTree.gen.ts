@@ -16,6 +16,8 @@ import { Route as AuthenticatedStudentRouteRouteImport } from './routes/_authent
 import { Route as AuthAdminRouteImport } from './routes/auth.admin'
 import { Route as AuthRegisterRouteImport } from './routes/auth.register'
 import { Route as AuthStudentRouteImport } from './routes/auth.student'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAdminScannerRouteImport } from './routes/_authenticated/admin/scanner'
 import { Route as AuthenticatedStudentIndexRouteImport } from './routes/_authenticated/student/index'
 import { Route as AuthenticatedStudentMenuRouteImport } from './routes/_authenticated/student/menu'
 import { Route as AuthenticatedStudentProblemsRouteImport } from './routes/_authenticated/student/problems'
@@ -59,6 +61,17 @@ const AuthStudentRoute = AuthStudentRouteImport.update({
   path: '/auth/student',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
+const AuthenticatedAdminScannerRoute =
+  AuthenticatedAdminScannerRouteImport.update({
+    id: '/scanner',
+    path: '/scanner',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedStudentIndexRoute =
   AuthenticatedStudentIndexRouteImport.update({
     id: '/',
@@ -103,48 +116,53 @@ const AuthenticatedStudentStatusRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AuthenticatedAdminRouteRoute
+  '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/student': typeof AuthenticatedStudentRouteRouteWithChildren
   '/auth/admin': typeof AuthAdminRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/student': typeof AuthStudentRoute
+  '/admin/scanner': typeof AuthenticatedAdminScannerRoute
   '/student/menu': typeof AuthenticatedStudentMenuRoute
   '/student/problems': typeof AuthenticatedStudentProblemsRoute
   '/student/profile': typeof AuthenticatedStudentProfileRoute
   '/student/qr': typeof AuthenticatedStudentQrRoute
   '/student/report': typeof AuthenticatedStudentReportRoute
   '/student/status': typeof AuthenticatedStudentStatusRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/student/': typeof AuthenticatedStudentIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AuthenticatedAdminRouteRoute
   '/auth/admin': typeof AuthAdminRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/student': typeof AuthStudentRoute
+  '/admin/scanner': typeof AuthenticatedAdminScannerRoute
   '/student/menu': typeof AuthenticatedStudentMenuRoute
   '/student/problems': typeof AuthenticatedStudentProblemsRoute
   '/student/profile': typeof AuthenticatedStudentProfileRoute
   '/student/qr': typeof AuthenticatedStudentQrRoute
   '/student/report': typeof AuthenticatedStudentReportRoute
   '/student/status': typeof AuthenticatedStudentStatusRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/student': typeof AuthenticatedStudentIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/_authenticated/admin': typeof AuthenticatedAdminRouteRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/_authenticated/student': typeof AuthenticatedStudentRouteRouteWithChildren
   '/auth/admin': typeof AuthAdminRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/student': typeof AuthStudentRoute
+  '/_authenticated/admin/scanner': typeof AuthenticatedAdminScannerRoute
   '/_authenticated/student/menu': typeof AuthenticatedStudentMenuRoute
   '/_authenticated/student/problems': typeof AuthenticatedStudentProblemsRoute
   '/_authenticated/student/profile': typeof AuthenticatedStudentProfileRoute
   '/_authenticated/student/qr': typeof AuthenticatedStudentQrRoute
   '/_authenticated/student/report': typeof AuthenticatedStudentReportRoute
   '/_authenticated/student/status': typeof AuthenticatedStudentStatusRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/student/': typeof AuthenticatedStudentIndexRoute
 }
 export interface FileRouteTypes {
@@ -156,26 +174,29 @@ export interface FileRouteTypes {
     | '/auth/admin'
     | '/auth/register'
     | '/auth/student'
+    | '/admin/scanner'
     | '/student/menu'
     | '/student/problems'
     | '/student/profile'
     | '/student/qr'
     | '/student/report'
     | '/student/status'
+    | '/admin/'
     | '/student/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/admin'
     | '/auth/admin'
     | '/auth/register'
     | '/auth/student'
+    | '/admin/scanner'
     | '/student/menu'
     | '/student/problems'
     | '/student/profile'
     | '/student/qr'
     | '/student/report'
     | '/student/status'
+    | '/admin'
     | '/student'
   id:
     | '__root__'
@@ -186,12 +207,14 @@ export interface FileRouteTypes {
     | '/auth/admin'
     | '/auth/register'
     | '/auth/student'
+    | '/_authenticated/admin/scanner'
     | '/_authenticated/student/menu'
     | '/_authenticated/student/problems'
     | '/_authenticated/student/profile'
     | '/_authenticated/student/qr'
     | '/_authenticated/student/report'
     | '/_authenticated/student/status'
+    | '/_authenticated/admin/'
     | '/_authenticated/student/'
   fileRoutesById: FileRoutesById
 }
@@ -254,6 +277,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthStudentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/scanner': {
+      id: '/_authenticated/admin/scanner'
+      path: '/scanner'
+      fullPath: '/admin/scanner'
+      preLoaderRoute: typeof AuthenticatedAdminScannerRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/student/': {
       id: '/_authenticated/student/'
       path: '/'
@@ -306,6 +343,22 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedAdminRouteRouteChildren {
+  AuthenticatedAdminScannerRoute: typeof AuthenticatedAdminScannerRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
+  {
+    AuthenticatedAdminScannerRoute: AuthenticatedAdminScannerRoute,
+    AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  }
+
+const AuthenticatedAdminRouteRouteWithChildren =
+  AuthenticatedAdminRouteRoute._addFileChildren(
+    AuthenticatedAdminRouteRouteChildren,
+  )
+
 interface AuthenticatedStudentRouteRouteChildren {
   AuthenticatedStudentMenuRoute: typeof AuthenticatedStudentMenuRoute
   AuthenticatedStudentProblemsRoute: typeof AuthenticatedStudentProblemsRoute
@@ -333,12 +386,12 @@ const AuthenticatedStudentRouteRouteWithChildren =
   )
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRoute
+  AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRouteWithChildren
   AuthenticatedStudentRouteRoute: typeof AuthenticatedStudentRouteRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRoute,
+  AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRouteWithChildren,
   AuthenticatedStudentRouteRoute: AuthenticatedStudentRouteRouteWithChildren,
 }
 
