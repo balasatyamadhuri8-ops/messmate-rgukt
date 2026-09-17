@@ -104,7 +104,7 @@ function ReportProblem() {
             <div className="space-y-2">
               <Label htmlFor="category">Problem Category</Label>
               <Select value={category} onValueChange={setCategory}>
-                <SelectTrigger id="category" aria-invalid={!!errors.category}>
+                <SelectTrigger id="category" aria-invalid={!!errors['category']}>
                   <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
                 <SelectContent>
@@ -115,7 +115,7 @@ function ReportProblem() {
                   ))}
                 </SelectContent>
               </Select>
-              {errors.category ? <p className="text-sm text-destructive">{errors.category}</p> : null}
+              {errors['category'] ? <p className="text-sm text-destructive">{errors['category']}</p> : null}
             </div>
 
             <div className="space-y-2">
@@ -125,9 +125,9 @@ function ReportProblem() {
                 value={title}
                 maxLength={120}
                 onChange={(e) => setTitle(e.target.value)}
-                aria-invalid={!!errors.title}
+                aria-invalid={!!errors['title']}
               />
-              {errors.title ? <p className="text-sm text-destructive">{errors.title}</p> : null}
+              {errors['title'] ? <p className="text-sm text-destructive">{errors['title']}</p> : null}
             </div>
 
             <div className="space-y-2">
@@ -138,10 +138,10 @@ function ReportProblem() {
                 maxLength={1000}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                aria-invalid={!!errors.description}
+                aria-invalid={!!errors['description']}
               />
-              {errors.description ? (
-                <p className="text-sm text-destructive">{errors.description}</p>
+              {errors['description'] ? (
+                <p className="text-sm text-destructive">{errors['description']}</p>
               ) : null}
             </div>
 
@@ -156,7 +156,7 @@ function ReportProblem() {
               <p className="text-sm text-muted-foreground">
                 Image is optional. JPG, PNG or WebP up to 5 MB.
               </p>
-              {errors.file ? <p className="text-sm text-destructive">{errors.file}</p> : null}
+              {errors['file'] ? <p className="text-sm text-destructive">{errors['file']}</p> : null}
             </div>
 
             <Button type="submit" disabled={loading} className="w-full sm:w-auto">

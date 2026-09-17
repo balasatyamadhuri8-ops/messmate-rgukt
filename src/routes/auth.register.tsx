@@ -113,14 +113,14 @@ function Register() {
           label="Full Name"
           value={form.fullName}
           onChange={(v) => set("fullName", v)}
-          error={errors.fullName}
+          error={errors['fullName'] ?? ""}
         />
         <Field
           id="studentId"
           label="Student ID"
           value={form.studentId}
           onChange={(v) => set("studentId", v)}
-          error={errors.studentId}
+          error={errors['studentId'] ?? ""}
         />
         <Field
           id="email"
@@ -128,7 +128,7 @@ function Register() {
           type="email"
           value={form.email}
           onChange={(v) => set("email", v)}
-          error={errors.email}
+          error={errors['email'] ?? ""}
         />
         <Field
           id="password"
@@ -136,7 +136,7 @@ function Register() {
           type="password"
           value={form.password}
           onChange={(v) => set("password", v)}
-          error={errors.password}
+          error={errors['password'] ?? ""}
         />
         <Field
           id="confirm"
@@ -144,7 +144,7 @@ function Register() {
           type="password"
           value={form.confirm}
           onChange={(v) => set("confirm", v)}
-          error={errors.confirm}
+          error={errors['confirm'] ?? ""}
         />
         <Button type="submit" className="w-full" disabled={loading}>
           {loading ? "Creating account..." : "Create Account"}
